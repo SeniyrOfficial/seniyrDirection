@@ -9,27 +9,20 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.layers import TextVectorization
 
-dataset = tf.keras.utils.get_file("aclImdb_v1.tar.gz", url,
-                                  untar=True, cache_dir='.',
-                                  cache_subdir='')
-
-dataset_dir = os.path.join(os.path.dirname(dataset), 'aclImdb')
-os.listdir(dataset_dir)
-
 # Read dataset from the directory
 batch_size = 1024
 seed = 123
 train_ds = tf.keras.utils.text_dataset_from_directory(
-    'aclImdb/train', batch_size=batch_size, validation_split=0.2,
+    'data/trainData', batch_size=batch_size, validation_split=0.2,
     subset='training', seed=seed)
 val_ds = tf.keras.utils.text_dataset_from_directory(
-    'aclImdb/train', batch_size=batch_size, validation_split=0.2,
+    'data/trainData', batch_size=batch_size, validation_split=0.2,
     subset='validation', seed=seed)
 
 # Visualize data
-for text_batch, label_batch in train_ds.take(1):
-  for i in range(5):
-    print(label_batch[i].numpy(), text_batch.numpy()[i])
+# for text_batch, label_batch in train_ds.take(1):
+#   for i in range(5):
+#     #print(label_batch[i].numpy(), text_batch.numpy()[i])
 
 # Configure dataset for training
 AUTOTUNE = tf.data.AUTOTUNE
@@ -37,9 +30,13 @@ AUTOTUNE = tf.data.AUTOTUNE
 train_ds = train_ds.cache().prefetch(buffer_size=AUTOTUNE)
 val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
+# Vocabulary size and number of words in a sequence.
+vocab_size = 1000
+sequence_length = 100
+
 # TEXT PROCESSING (TEXT VECTORIZATION)
 vectorize_layer = TextVectorization(
-    standardize=custom_standardization,
+    #standardize=custom_standardization,
     max_tokens=vocab_size,
     output_mode='int',
     output_sequence_length=sequence_length)
@@ -75,17 +72,14 @@ model.fit(
 
 model.summary()
 
-%load_ext tensorboard
-%tensorboard --logdir logs
+# out_v = io.open('vectors.tsv', 'w', encoding='utf-8')
+# out_m = io.open('metadata.tsv', 'w', encoding='utf-8')
 
-out_v = io.open('vectors.tsv', 'w', encoding='utf-8')
-out_m = io.open('metadata.tsv', 'w', encoding='utf-8')
-
-for index, word in enumerate(vocab):
-  if index == 0:
-    continue  # skip 0, it's padding.
-  vec = weights[index]
-  out_v.write('\t'.join([str(x) for x in vec]) + "\n")
-  out_m.write(word + "\n")
-out_v.close()
-out_m.close()
+# for index, word in enumerate(vocab):
+#  if index == 0:
+#    continue  # skip 0, it's padding.
+#  vec = weights[index]
+#  out_v.write('\t'.join([str(x) for x in vec]) + "\n")
+#  out_m.write(word + "\n")
+# out_v.close()
+# out_m.close()
