@@ -11,16 +11,16 @@ Y = data_numpy[:, 34]
 clf = svm.SVC(decision_function_shape='ovo')
 clf.fit(X, Y)
 
-test_1 = np.array([[1,1,1,1,1,0,0,1,0,0,1,0,0,3,0,0,0,1,0,1,0,0,0,0,1,1,0,4,1,91,97,74,87,85]]) # 0
-test_2 = np.array([[0,0,0,0,0,0,0,1,1,0,0,1,0,3,1,0,1,1,1,0,1,1,1,0,1,1,0,4,3,81,90,84,67,82]]) # 1
-test_3 = np.array([[1,0,1,0,1,0,0,0,0,0,0,1,0,3,0,0,0,0,1,0,0,1,1,0,0,0,1,6,0,94,96,83,99,98]])
-test_4 = np.array([[1,0,0,0,0,0,0,1,1,1,0,1,1,4,1,0,1,1,0,0,1,0,0,1,0,1,0,5,1,71,97,88,88,91]])
+# test_1 = np.array([[1,1,1,1,1,0,0,1,0,0,1,0,0,3,0,0,0,1,0,1,0,0,0,0,1,1,0,4,1,91,97,74,87,85]]) # 0
+# test_2 = np.array([[0,0,0,0,0,0,0,1,1,0,0,1,0,3,1,0,1,1,1,0,1,1,1,0,1,1,0,4,3,81,90,84,67,82]]) # 1
+# test_3 = np.array([[1,0,1,0,1,0,0,0,0,0,0,1,0,3,0,0,0,0,1,0,0,1,1,0,0,0,1,6,0,94,96,83,99,98]])
+# test_4 = np.array([[1,0,0,0,0,0,0,1,1,1,0,1,1,4,1,0,1,1,0,0,1,0,0,1,0,1,0,5,1,71,97,88,88,91]])
 
 
-print("Test_1 Label: ", clf.predict(test_1))
-print("Test_2 Label: ", clf.predict(test_2))
-print("Test_3 Label: ", clf.predict(test_3))
-print("Test_4 Label: ", clf.predict(test_4))
+# print("Test_1 Label: ", clf.predict(test_1))
+# print("Test_2 Label: ", clf.predict(test_2))
+# print("Test_3 Label: ", clf.predict(test_3))
+# print("Test_4 Label: ", clf.predict(test_4))
 
 correct = 0
 wrong = 0
